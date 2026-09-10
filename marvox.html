@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarVox Game</title>
+    <style>
+        /* Reset Dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            overflow: hidden;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        /* HALAMAN INTRO (FULLSCREEN) */
+        #intro-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #050505;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease;
+        }
+
+        /* Kontainer Teks Intro */
+        .intro-container {
+            text-align: center;
+            opacity: 0; /* Mulai dari tidak terlihat */
+            transform: scale(0.95);
+            transition: opacity 1.5s ease, transform 1.5s ease;
+        }
+
+        /* Efek Aktif Saat Teks Muncul */
+        .intro-container.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .studio-name {
+            font-size: 3rem;
+            letter-spacing: 8px;
+            color: #e22a2a;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .presents {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #FFD700;
+            letter-spacing: 4px;
+            margin-bottom: 25px;
+        }
+
+        .creators {
+            font-size: 1.4rem;
+            color: #47bfff; /* Warna aksen merah/orange */
+            letter-spacing: 2px;
+        }
+
+        /* HALAMAN UTAMA GAME (DI BELAKANG INTRO) */
+        #game-page {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: hwb(186 16% 5%);
+            background: radial-gradient(circle, #1e272e 0%, #0f141c 100%);
+        }
+
+        #game-page h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. HALAMAN INTRO PRESET -->
+    <div id="intro-page">
+        <div class="intro-container" id="intro-content">
+            <div class="studio-name">MarVox Studio</div>
+            <div class="presents">Presents</div>
+            <div class="creators">A Game by Marquez & Gemilang</div>
+        </div>
+    </div>
+
+    <!-- 2. HALAMAN UTAMA GAME -->
+    <div id="game-page">
+        <h1>MAIN MENU</h1>
+        <p>Game siap dimainkan tekan untuk mulai.</p>
+    </div>
+
+    <!-- SCRIPT LOGIKA HALAMAN -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const introPage = document.getElementById('intro-page');
+            const introContent = document.getElementById('intro-content');
+
+            // Langkah 1: Munculkan teks preset (efek fade-in) setelah 0.5 detik halaman dimuat
+            setTimeout(() => {
+                introContent.classList.add('show');
+            }, 500);
+
+            // Langkah 2: Hilangkan teks preset (efek fade-out) setelah tampil selama 3.5 detik
+            setTimeout(() => {
+                introContent.classList.remove('show');
+            }, 3500);
+
+            // Langkah 3: Gulung/hilangkan seluruh halaman intro agar halaman game terlihat
+            setTimeout(() => {
+                introPage.style.opacity = 0;
+                
+                // Hapus halaman intro sepenuhnya dari sistem agar tidak memberatkan game
+                setTimeout(() => {
+                    introPage.remove();
+                }, 1000); // Menunggu transisi opacity selesai
+                
+            }, 4500);
+        });
+    </script>
+</body>
+</html>
